@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const month = from.toLocaleString('default', { month: 'long' });
         const year = from.getFullYear();
 
-        return `${month} ${fromDay}-${toDay}, ${year}`;
+        return `${month}-${fromDay}-${year}`;
     }
 
     // Open and close modal functions
