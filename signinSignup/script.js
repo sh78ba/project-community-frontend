@@ -24,13 +24,21 @@ async function handleFormSubmit(event, type) {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
 
-    let url = `${API_URL}/signin`;
-    if (type === 'signup') {
-        url = `${API_URL}/signup`;
-    }
+    
 
     try {
-        const response = await axios.post(url, data);
+        if (type === 'signup') {
+            let url = `${API_URL}/signup`;
+            const response = await axios.post(url, data);
+            //console.log('Response:', response.data);
+            // Handle success response
+            window.location.href = '../signinSignup/index.html';
+            alert("SiginUp Successfull")
+        }
+
+          
+        let url1 = `${API_URL}/signin`;
+        const response = await axios.post(url1, data);
         //console.log('Response:', response.data);
         // Handle success response
         const { email, name,id } = response.data;
