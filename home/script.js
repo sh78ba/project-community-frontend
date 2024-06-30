@@ -23,6 +23,6 @@ contactusbtn.addEventListener("click",function(){
     alert("Submitted Successfully")
 })
 
-if(localStorage.length==0){
-    window.location.href = "../signinSignup/index.html";
-}
+// if(localStorage.length==0){
+//     window.location.href = "../signinSignup/index.html";
+// }

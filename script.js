@@ -166,6 +166,3 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-if(localStorage.length==0){
-    window.location.href = "../signinSignup/index.html";
-}

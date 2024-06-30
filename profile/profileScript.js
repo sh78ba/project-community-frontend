@@ -287,6 +287,6 @@ alert('Failed to update profile');
 }
 }
 
-if(localStorage.length==0){
-    window.location.href = "../signinSignup/index.html";
-}
+// if(localStorage.length==0){
+//     window.location.href = "../signinSignup/index.html";
+// }
