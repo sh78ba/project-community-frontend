@@ -1,23 +1,32 @@
 
-        const interests = [
-            { name: 'Football', icon: 'fas fa-futbol' },
-            { name: 'Fine dining', icon: 'fas fa-utensils' },
-            { name: 'Poetry', icon: 'fas fa-feather-alt' },
-            { name: 'Cars', icon: 'fas fa-car' },
-            { name: 'Arts', icon: 'fas fa-palette' },
-            { name: 'History', icon: 'fas fa-landmark' },
-            { name: 'Science & Tech', icon: 'fas fa-microscope' },
-            { name: 'Travel', icon: 'fas fa-plane' },
-            { name: 'Film', icon: 'fas fa-film' }
-        ];
+
+async function fetchUserProfileAndRenderInterests() {
+    const email = localStorage.getItem("email");
+    try {
+        const response = await axios.get('https://project-community-xi.vercel.app/community/api/v1/getuser', {
+            params: { email: email }
+        });
+        const userData = response.data;
+        const interests = userData.interests || [];
+        // console.log(interests)
+        renderInterests(interests); // Re-render interests
+    } catch (error) {
+        console.error('Error fetching user profile:', error);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    fetchUserProfileAndRenderInterests();
+});
+
         
-        function renderInterests() {
+        function renderInterests(interests) {
             const interestTags = document.getElementById('interestTags');
             interestTags.innerHTML = '';
             interests.forEach(interest => {
                 const tag = document.createElement('span');
                 tag.className = 'interest-tag';
-                tag.innerHTML = `<i class="${interest.icon} icon"></i>${interest.name}`;
+                tag.innerHTML = `<i class="fa-solid fa-star"></i>${interest}`;
                 interestTags.appendChild(tag);
             });
         }
@@ -278,12 +287,45 @@ async function saveProfile() {
             // Update UI or show success message
             alert('Profile updated successfully');
             closeModal('editProfileModal'); // Close modal after successful update
+            fetchUserProfile();
         } else {
             alert('Failed to update profile');
         }
     } catch (error) {
         console.error('Error updating profile:', error);
         alert('Failed to update profile');
+    }
+}
+
+//interests update
+
+function saveInterests() {
+    const interestsInput = document.getElementById('editInterests').value;
+    const getemail = localStorage.getItem("email");
+    const interestsArray = interestsInput.split(',')
+        .map(interest => interest.trim())
+        .filter(interest => interest !== '');
+
+    // Debugging: Log the email and interestsArray to verify their formats
+    console.log('Email:', getemail);
+    console.log('Interests Array:', interestsArray);
+
+    // Ensure interestsArray is an array of strings
+    if (Array.isArray(interestsArray) && interestsArray.every(item => typeof item === 'string')) {
+        axios.put('https://project-community-xi.vercel.app/community/api/v1/updateinterest', {
+            email: getemail,
+            interests: interestsArray
+        })
+        .then(response => {
+            console.log('Interests updated successfully:', response);
+            // Additional success handling, e.g., updating the UI or notifying the user
+        })
+        .catch(error => {
+            console.error('Error updating interests:', error);
+            // Additional error handling, e.g., showing an error message to the user
+        });
+    } else {
+        console.error('Interests should be an array of strings');
     }
 }
 
