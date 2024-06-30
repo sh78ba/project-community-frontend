@@ -150,7 +150,7 @@ document.getElementById('profilePicInput').addEventListener('change', async func
 
     try {
         // Send POST request to update photo API
-        const response = await axios.post(API_URL_UPDATE_PHOTO, formData, {
+        const response = await axios.put(API_URL_UPDATE_PHOTO, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
