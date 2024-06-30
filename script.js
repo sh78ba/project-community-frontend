@@ -164,3 +164,8 @@ document.addEventListener('DOMContentLoaded', function() {
         profileImageNav.src = profileImageUrl;
     }
 });
+
+
+if(localStorage.length==0){
+    window.location.href = "../signinSignup/index.html";
+}
