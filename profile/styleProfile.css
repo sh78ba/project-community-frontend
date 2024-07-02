@@ -41,6 +41,11 @@
         }
         
         
+        .events-containers{
+            display: flex;
+           flex-wrap: wrap;
+        
+        }
 
         .profile-pic {
             width: 100px;

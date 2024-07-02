@@ -76,6 +76,8 @@ html {
     margin-right: 8px;
 }
 
+
+
 .event-option:hover {
     background-color: var(--blue);
     transform: translateY(-2px);
@@ -571,3 +573,4 @@ input:checked + .slider:before {
             margin: 10px 0;
         }
     }
+

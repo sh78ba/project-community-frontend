@@ -290,3 +290,88 @@ alert('Failed to update profile');
 // if(localStorage.length==0){
 //     window.location.href = "../signinSignup/index.html";
 // }
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const eventsContainer = document.querySelector('.events-containers');
+    const API_URL_FETCH_EVENT = "https://project-community-xi.vercel.app/community/api/v1/event/getregisteredevents";
+
+    // Fetch all events for the specific email ID from the API
+    async function fetchEvents() {
+        const email = localStorage.getItem("email");
+        if (!email) {
+            console.error('No email found in localStorage');
+            return;
+        }
+
+        try {
+            const response = await axios.get(API_URL_FETCH_EVENT, {
+                params: {
+                    email: email
+                }
+            });
+            const events = response.data;
+
+            // Create and display event elements
+            events.forEach(eventData => {
+                const eventElement = createEventElement(eventData);
+                eventsContainer.appendChild(eventElement);
+            });
+        } catch (error) {
+            console.error('Error fetching events:', error);
+        }
+    }
+
+    // Function to create event element
+    function createEventElement(eventData) {
+        const eventDiv = document.createElement('div');
+        eventDiv.className = 'event';
+
+        const img = document.createElement('img');
+        img.src = eventData.imageurl;
+        img.alt = eventData.title;
+
+        const title = document.createElement('h2');
+        title.textContent = eventData.title;
+
+        const location = document.createElement('p');
+        location.textContent =`Location: ${eventData.location}`;
+
+        const date=document.createElement("p")
+        date.textContent = `Date: ${formatDateRange(eventData.date)}`;
+
+        const joinButton = document.createElement('button');
+        joinButton.className = 'join-btn';
+        joinButton.textContent = 'Join Us';
+        joinButton.addEventListener('click', function() {
+                alert("Event has not started yet!!")
+        });
+
+        eventDiv.appendChild(img);
+        eventDiv.appendChild(title);
+        eventDiv.appendChild(location);
+        eventDiv.appendChild(date)
+        eventDiv.appendChild(joinButton);
+
+
+        return eventDiv;
+    }
+
+
+    // Fetch and display events on page load
+    fetchEvents();
+});
+
+function formatDateRange(date){
+    const from = new Date(date);
+
+    const fromDay = from.getDate();
+    const month = from.toLocaleString('default', { month: 'long' });
+    const year = from.getFullYear();
+
+    return `${month}-${fromDay}-${year}`;
+}

@@ -134,16 +134,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const description = document.createElement('p');
         description.textContent = eventData.description;
 
-        const joinButton = document.createElement('button');
-        joinButton.className = 'join-btn';
-        joinButton.textContent = 'Join Us';
+        //const joinButton = document.createElement('button');
+       // joinButton.className = 'join-btn';
+        //joinButton.textContent = 'Join Us';
 
         // You can add an event listener to the join button here if needed
 
         eventDiv.appendChild(img);
         eventDiv.appendChild(title);
         eventDiv.appendChild(description);
-        eventDiv.appendChild(joinButton);
+        //eventDiv.appendChild(joinButton);
 
         return eventDiv;
     }
